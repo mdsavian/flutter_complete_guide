@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import './question.dart';
-import './answer.dart';
+import 'package:flutter_complete_guide/quiz.dart';
+import 'package:flutter_complete_guide/result.dart';
 
 void main() {
   runApp(MyApp());
@@ -34,9 +33,6 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       _questionIndex += 1;
     });
-    print(_questionIndex);
-    print(_questions.length);
-    print(_questionIndex < _questions.length);
   }
 
   Widget build(BuildContext context) {
@@ -51,17 +47,8 @@ class _MyAppState extends State<MyApp> {
           title: Text('My First APP'),
         ),
         body: _questionIndex < _questions.length
-            ? Column(
-                children: [
-                  Question(_currentQuestion['questionText'] as String),
-                  ...(_currentQuestion['answer'] as List<String>).map((answer) {
-                    return Answer(_answerQuestion, answer);
-                  }).toList()
-                ],
-              )
-            : Center(
-                child: Text('Yeah you finish it!'),
-              ),
+            ? Quiz(_currentQuestion, _answerQuestion)
+            : Result(),
       ),
     );
   }
