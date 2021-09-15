@@ -24,9 +24,20 @@ class _MyAppState extends State<MyApp> {
 
   Widget build(BuildContext context) {
     const questions = [
-      'What is your favorite color?',
-      'What is your favorite animal?'
+      {
+        'questionText': 'What is your favorite color?',
+        'answer': ['Blue', 'Green', 'Red', 'Yellow']
+      },
+      {
+        'questionText': 'What is your favorite animal?',
+        'answer': ['Dog', 'Cat', 'Lion', 'Elephant']
+      },
+      {
+        'questionText': 'What is your favorite friend?',
+        'answer': ['Jogn', 'Philip', 'Andrew', 'Mike']
+      },
     ];
+    final currentQuestion = questions[questionIndex];
     return MaterialApp(
         home: Scaffold(
             appBar: AppBar(
@@ -34,10 +45,10 @@ class _MyAppState extends State<MyApp> {
             ),
             body: Column(
               children: [
-                Question(questions[questionIndex]),
-                Answer(_answerQuestion, 'Answer 1'),
-                Answer(_answerQuestion, 'Answer 2'),
-                Answer(_answerQuestion, 'Answer 3')
+                Question(currentQuestion['questionText'] as String),
+                ...(currentQuestion['answer'] as List<String>).map((answer) {
+                  return Answer(_answerQuestion, answer);
+                }).toList()
               ],
             )));
   }
